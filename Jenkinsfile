@@ -8,7 +8,7 @@ pipeline {
 	      sh '''
              git clone https://github.com/deji-bit/finalproject1_2020.git
 	     pwd
-	    scp -o StrictHostKeychecking=no -i /home/ec2-user/first-keys finalproject1_2020 ec2-user@172.31.5.213:/tmp
+	    sudo scp -o StrictHostKeychecking=no -i /home/ec2-user/first-keys finalproject1_2020 ec2-user@172.31.5.213:/tmp
             '''
       	 }  
        }
@@ -16,7 +16,7 @@ pipeline {
          steps {
             echo 'Deploying app to Passive box'
 	      sh '''
-	         ssh -i /home/ec2-user/first-keys ec2-user@172.31.5.213 '
+	         sudo ssh -i /home/ec2-user/first-keys ec2-user@172.31.5.213 '
 	           cd /tmp/finalproject1_2020/
 	         docker build -t appimage001 .
 	       docker rm -f appdeployment || "true"
@@ -28,7 +28,7 @@ pipeline {
          steps {
             echo 'Removing used files and folders'
 	      sh '''
-                ssh -i /home/ec2-user/first-keys ec2-user@172.31.5.213 '
+                sudo ssh -i /home/ec2-user/first-keys ec2-user@172.31.5.213 '
 	        sudo rm -rf /tmp/finalproject1_2020/ '
             '''
       	 }
