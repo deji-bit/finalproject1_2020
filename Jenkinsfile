@@ -1,9 +1,3 @@
-### Upon code commit by the developer, the pipeline will perform the following actions:
-### 1. establish the ip of the box which is passive
-### 2. build a new image of the application
-### 3. deploy a new containerised version of the application pointing to the same redis box
-
-
 pipeline {
    agent any
 
