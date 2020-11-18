@@ -6,8 +6,7 @@ pipeline {
          steps {
             echo 'Cloning code from repository'
 	      sh '''
-             ssh -o StrictHostKeychecking=no -i /home/ec2-user/first-keys ec2-user@172.31.5.213 '
-            git clone https://github.com/deji-bit/finalproject1_2020.git || true '
+             ssh -o StrictHostKeychecking=no -i /home/ec2-user/first-keys ec2-user@172.31.5.213 | git clone https://github.com/deji-bit/finalproject1_2020.git || 'true'
             '''
       	 }  
        }
