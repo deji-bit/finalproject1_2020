@@ -13,7 +13,7 @@ pipeline {
             echo 'Cloning code from repository'
 	      sh '''
              sudo ssh -o StrictHostKeychecking=no -i /home/ec2-user/first-keys ec2-user@172.31.5.213 '
-            git clone https://github.com/deji-bit/finalproject1_2020.git /home/ec2-user/appcode'
+            git clone https://github.com/deji-bit/finalproject1_2020.git /home/ec2-user/'
             '''
       	 }  
        }
@@ -22,7 +22,7 @@ pipeline {
             echo 'Deploying app to Passive box'
 	      sh '''
 	         sudo ssh -i /home/ec2-user/first-keys ec2-user@172.31.5.213 '
-	           cd /home/ec2-user/appcode/
+	           cd /home/ec2-user/finalproject1_2020/
 	         docker build -t appimage001 .
 	       docker rm -f appdeployment || 'true'
 	     docker run -d -p 80:80 -e REDIS=172.31.4.187 -e REDIS_PORT=6379  -e REDIS_PWD=redis --name appdeployment appimage001 '
@@ -34,7 +34,7 @@ pipeline {
             echo 'Removing used files and folders'
 	      sh '''
                 sudo ssh -i /home/ec2-user/first-keys ec2-user@172.31.5.213 '
-	        sudo rm -rf /home/ec2-user/appcode/ '
+	        sudo rm -rf /home/ec2-user/finalproject1_2020/ '
             '''
       	 }
        }
