@@ -2,7 +2,7 @@ pipeline {
 	environment {
 	  registry = "dejidock01/myprojects"
            registryCredential = 'dockerhub'
-	  dockerImage = ''
+	  customImage = ''
 	}	
    agent any
 
@@ -22,7 +22,7 @@ pipeline {
             echo 'Building image from Dockerfile...'
               sh '''	    
               
-               dockerImage = docker.build registry + ":$BUILD_NUMBER"
+               customImage = docker.build(registry + :${BUILD_NUMBER}")
               '''
       	    }  
           }
@@ -32,7 +32,7 @@ pipeline {
             echo 'Pushing image to Dockerhub...'
 	    sh '''
               docker.withRegistry('', 'registryCredential') {
-	          dockerImage.push()
+	          customImage.push()
 		 
 	       }
               '''
