@@ -20,10 +20,10 @@ pipeline {
       stage('Build image' ) {
          steps {
             echo 'Building image from Dockerfile...'
-              	    
+		 script { 	    
               
                customImage = docker.build(registry + ":${BUILD_NUMBER}")
-              
+	      }
       	    }  
           }
 
