@@ -12,7 +12,7 @@ pipeline {
             echo 'Cloning code from repository'
 	      sh '''
 	      pwd
-              git clone https://github.com/deji-bit/finalproject1_2020.git 
+              git 'https://github.com/deji-bit/finalproject1_2020.git'
               '''
              }
 	  }
@@ -21,7 +21,7 @@ pipeline {
          steps {
             echo 'Building image from Dockerfile...'
               sh '''	    
-              cd finalproject1_2020/
+              
                dockerImage = docker.build registry + ":$BUILD_NUMBER"
               '''
       	    }  
@@ -33,7 +33,7 @@ pipeline {
 	    sh '''
               docker.withRegistry('', 'registryCredential') {
 	          dockerImage.push()
-		  app.push("latest")
+		 
 	       }
               '''
       	   }  
