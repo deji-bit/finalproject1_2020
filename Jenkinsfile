@@ -38,7 +38,7 @@ pipeline {
        }  
        stage('Remove unused Docker Image') {
 	  steps {
-		  sh "docker rmi $registry + appimage:$BUILD_NUMBER" || true
+		  sh "sudo rm -rf finalproject1_2020" || true
 	   }   
        }
     }
