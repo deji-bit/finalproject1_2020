@@ -15,10 +15,10 @@ pipeline {
       stage('Build image' ) {
          steps {
             echo 'Building image from Dockerfile...'
-	    sh '''
+	    
               cd finalproject1_2020/
-               app = docker.build ("appimage001")
-            '''
+               app = docker.build("appimage001")
+           
       	    }  
           }
 
