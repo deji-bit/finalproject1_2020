@@ -1,4 +1,9 @@
 pipeline {
+	environment {
+	  registry = "dejidock01/myprojects"
+           registryCredential = 'dockerhub'
+	  dockerImage = ''
+	}	
    agent any
 
    stages {
@@ -15,10 +20,10 @@ pipeline {
       stage('Build image' ) {
          steps {
             echo 'Building image from Dockerfile...'
-	    
+              sh '''	    
               cd finalproject1_2020/
-               app = docker.build("appimage001")
-           
+               dockerImage = docker.build registry + ":$BUILD_NUMBER"
+              '''
       	    }  
           }
 
@@ -26,8 +31,8 @@ pipeline {
          steps {
             echo 'Pushing image to Dockerhub...'
 	    sh '''
-              docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-	          app.push("${env.BUILD_NUMBER}")
+              docker.withRegistry('', 'registryCredential') {
+	          dockerImage.push()
 		  app.push("latest")
 	       }
               '''
