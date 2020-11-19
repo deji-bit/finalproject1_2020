@@ -8,18 +8,30 @@ pipeline {
 	      sh '''
 	      pwd
               git clone https://github.com/deji-bit/finalproject1_2020.git 
-	      
-	     
-	    pwd
-	    ssh -o StrictHostKeychecking=no -i first-keys ec2-user@172.31.5.213 '
-	    sudo mkdir test123
-	    pwd
-	    '
-	    pwd
-	    sudo scp -v -o StrictHostKeyChecking=no -i first-keys -rf finalproject1_2020/ ec2-user@172.31.5.213:/tmp
-	    pwd
+              '''
+             }
+	  }
+	  
+      stage('Build image' ) {
+         steps {
+            echo 'Building image from Dockerfile...'
+	    sh '''
+              cd finalproject1_2020/
+               app = docker.build("appimage001")
             '''
-      	 }  
-       }
-    }  
-}
+      	    }  
+          }
+
+      stage('Push image' ) {
+         steps {
+            echo 'Pushing image to Dockerhub...'
+	    sh '''
+              docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
+	          app.push("${env.BUILD_NUMBER}")
+		  app.push("latest")
+	       }
+              '''
+      	   }  
+        }
+     }  
+  }
