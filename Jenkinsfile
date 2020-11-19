@@ -22,7 +22,7 @@ pipeline {
             echo 'Building image from Dockerfile...'
               sh '''	    
               
-               customImage = docker.build(registry + :${BUILD_NUMBER}")
+               customImage = docker.build(registry + ":${BUILD_NUMBER}")
               '''
       	    }  
           }
