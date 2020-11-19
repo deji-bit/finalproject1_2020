@@ -12,7 +12,7 @@ pipeline {
             echo 'Cloning code from repository'
 	      sh '''
 	      pwd
-              git 'https://github.com/deji-bit/finalproject1_2020.git'
+              git clone https://github.com/deji-bit/finalproject1_2020.git
               '''
              }
 	  }
