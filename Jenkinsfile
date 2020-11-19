@@ -30,12 +30,11 @@ pipeline {
       stage('Push image' ) {
          steps {
             echo 'Pushing image to Dockerhub...'
-	    sh '''
+		 script {
               docker.withRegistry('', 'registryCredential') {
 	          customImage.push()
-		 
-	       }
-              '''
+                }
+             
       	   }  
         }
      }  
