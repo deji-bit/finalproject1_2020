@@ -36,10 +36,14 @@ pipeline {
              }  
           }
        }  
-       stage('Remove unused Docker Image') {
-	  steps {
-		  sh "sudo rm -rf finalproject1_2020" || true
-	   }   
-       }
-    }
+
+      stage('Cleanup' ) {
+         steps {
+            echo 'Removing used files and folders'
+	      sh '''
+	        sudo rm -rf finalproject1_2020/ || 'true'
+            '''
+      	 }
+       }    
+   }
 }
