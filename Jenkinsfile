@@ -31,7 +31,7 @@ pipeline {
          steps {
             echo 'Pushing image to Dockerhub...'
 		 script {
-              docker.withRegistry('', 'registryCredential') {
+              docker.withRegistry('', registryCredential) {
 	          customImage.push()
                 }
              
