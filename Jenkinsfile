@@ -37,6 +37,18 @@ pipeline {
           }
        }  
 
+      stage('Deploy App' ) {
+         steps {
+            echo 'Deploying app to Passive box'
+	      sh '''
+	         sudo ssh -i first-keys ec2-user@172.31.5.213 '
+	       sudo docker rm -f popularityvote || "true"
+	     sudo docker run -d -p 80:80 -e REDIS=172.31.4.187 -e REDIS_PORT=6379  -e REDIS_PWD=redis --name popularityvote dejidock01/myprojectsappimage '
+            '''
+      	 }
+       }
+
+	   
       stage('Cleanup' ) {
          steps {
             echo 'Removing used files and folders'
