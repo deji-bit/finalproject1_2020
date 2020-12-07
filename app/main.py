@@ -22,7 +22,9 @@ redis_password = os.environ['REDIS_PWD']
 
 # Redis Connection
 try:
-    r = redis.StrictRedis(host=redis_server, port=redis_port, password=redis_password)
+    pool = redis.ConnectionPool(host=redis_server, port=redis_port, password=redis_password)
+    r = redis.Redis(connection_pool=pool)
+#    r = redis.StrictRedis(host=redis_server, port=redis_port, password=redis_password)
     r.ping()
 except redis.ConnectionError:
     exit('Failed to connect to Redis, terminating.')
